@@ -1,12 +1,15 @@
 package org.example.Entities;
 
 import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.mysql.cj.x.protobuf.MysqlxCursor.Fetch;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -36,7 +39,7 @@ public class Userinfo {
 
     @ManyToAny(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "user_roles",
+        name ="user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )

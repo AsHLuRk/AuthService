@@ -10,7 +10,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
+
+@Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomUserDetails extends Userinfo implements UserDetails{
 
 
