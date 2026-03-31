@@ -18,6 +18,10 @@ public class UserDetailsServiceImp implements UserDetailsService{
     @Autowired
     private UserRepository userrepository;
 
+    @Autowired 
+    private PasswordEncoder passwordEncoder;
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
