@@ -1,0 +1,14 @@
+package org.example.requests;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class RefreshTokenRequestDTO {
+    private String token;
+}

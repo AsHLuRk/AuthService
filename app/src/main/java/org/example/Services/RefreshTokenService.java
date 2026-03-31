@@ -1,5 +1,6 @@
 package org.example.Services;
 
+import java.util.Optional;
 import java.util.UUID;
 import lombok.Builder;
 import lombok.Data;
@@ -25,11 +26,8 @@ public class RefreshTokenService {
 
 
     @Autowired UserRepository userrepository;
-
     public RefreshToken createRefreshToken(String username){
-
         Userinfo userInfoExtracted = userrepository.findByUsername(username);
-
         RefreshToken newRefreshtoken = RefreshToken.builder()
            .userInfo(userInfoExtracted)
            .token(UUID.randomUUID().toString())
@@ -38,4 +36,19 @@ public class RefreshTokenService {
         
         return refreshtokenrepository.save(newRefreshtoken);
     }
+
+    public RefreshToken verifyExpiration(RefreshToken token){
+
+        if(token.getExpiryDate().compareTo(Instant.now())<0){
+
+            refreshtokenrepository.delete(token);
+            throw new RuntimeException( token.getToken() +"Refresh Token expired , please make a new login");
+        } 
+        return token;
+    }
+    public  Optional<RefreshToken> findByToken(String token){
+
+        return refreshtokenrepository.findByToken(token);
+    }
+
 }
