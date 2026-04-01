@@ -11,8 +11,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import com.netflix.discovery.converters.Auto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Component
+@Data
 
 public class UserDetailsServiceImp implements UserDetailsService{
 
@@ -50,8 +60,10 @@ public class UserDetailsServiceImp implements UserDetailsService{
     if(Objects.nonNull(checkIfUserAlreadyExist(userinfodto))){
         return false;
     }
-    String userid = UUID.randomUUID().toString();
-    Userinfo userinfo = new Userinfo(userid, userinfodto.getUsername(), userinfodto.getPassword(), new HashSet<>());
+    Userinfo userinfo = new Userinfo();
+    userinfo.setUsername(userinfodto.getUsername());
+    userinfo.setPassword(userinfodto.getPassword());
+    userinfo.setRoles(new HashSet<>());
     userrepository.save(userinfo);
     return true;
 
